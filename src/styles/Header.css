@@ -1,0 +1,33 @@
+header {
+    margin: 25px 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+        padding: 15px 20px;
+        margin: 0 10px 0 0;
+        color: rgb(0,0,0,.75);
+        font-weight: 500;
+    } a:hover {
+        background-color: rgba(158, 174, 232, 0.075);
+        border-radius: 10px;
+        color: rgb(0,0,0,1);
+    }
+
+    button#mobile-nav {
+        display: none;
+        padding: 10px;
+
+        outline: none;
+        border-radius: 10px;
+        border: 1px solid rgba(65, 78, 125, 0.25);
+        background-color: #fff;
+        color: #222;
+
+        cursor: pointer;
+    } button#mobile-nav:hover {
+        background-color: rgba(158, 174, 232, 0.075);
+    }
+}
