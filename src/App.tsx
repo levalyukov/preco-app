@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
-import Schedule from './components/Schedule';
+import Homepage from './components/Homepage';
+import Footer from './components/Footer';
 import './styles/App.css'
 
 const App: React.FC = () =>{
@@ -8,7 +9,8 @@ const App: React.FC = () =>{
     <div className="App">
       <main id='app'>
           <Header/>
-          <Schedule/>
+          <Homepage/>
+          <Footer/>
       </main>
     </div>
   );
