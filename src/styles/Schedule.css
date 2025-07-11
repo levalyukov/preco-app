@@ -1,35 +1,42 @@
-#container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+#schedule-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    align-items: stretch;
+    gap: 10px 5px;
     article {
         background-color: rgba(158, 174, 232, 0.05);
         border: 1px solid rgba(65, 78, 125, 0.25);
         border-radius: 10px;
 
-        flex-grow: 1;
-        flex-basis: 300;
+        margin: 0 5px;
+        box-sizing: border-box;
         padding: 10px;
-        margin: 5px;
+        height: 100%;
 
-        color: #222;
-
+        color: rgb(30, 37, 62, 1);
         #header {
             padding: 5px 15px;
             margin: 0;
             
-            color: #000;
+            color: rgb(30, 37, 62, 1);
             text-align: center;
             font-weight: 500;
         } 
         
         #data-container {
-            display: flex;
-            justify-content: space-between;
-            div {
-                margin: 0 20px;
+            table {
+                width: 100%;
+                margin: 15px 0;
+                td {
+                    text-align: center;
+                }
             }
         }
+    }
+}
+
+@media (max-width: 475px) {
+    #schedule-container {
+        padding: 25px;
     }
 }
