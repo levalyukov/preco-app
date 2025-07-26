@@ -17,6 +17,7 @@ This application is a learning exercise. Consequently, some implementation choic
 - Server: [Express.js](https://github.com/expressjs/express)
 - Parser: [Playwright](https://github.com/microsoft/playwright)
 - Icons: [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
+- Build: [Vite](https://github.com/vitejs/vite)
 
 ## Install
 
