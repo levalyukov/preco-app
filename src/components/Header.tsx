@@ -1,56 +1,45 @@
-import React, {useEffect, useRef, useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCalendarDays, faCircleUser} from '@fortawesome/free-solid-svg-icons';
 import '../styles/Header.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faCalendarDays, faXmark} from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
 
+function Header({newPage}: {newPage: (page: 'schedule') => void}) {
+  
+	const [menuVisible, changeMenuVisible] = useState(false);
 
-const Header: React.FC = () => {
+	function handleOpenMenu() {
+    changeMenuVisible(true);
+    document.body.style.overflowY = 'hidden';
+  }
+	function handleCloseMenu() {
+    changeMenuVisible(false);
+    document.body.style.overflowY = 'scroll';
+  }
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const mobileMenuRef = useRef<HTMLDivElement>(null);
-    const backgroundRef = useRef<HTMLDivElement>(null);
-
-    const handleOpenMenu = () => {setIsMenuOpen(true);};
-    const handleCloseMenu = () => {setIsMenuOpen(false);};
-
-    useEffect(() => {
-        if (isMenuOpen) {
-            const originalOverflow = document.body.style.overflow;
-            document.body.style.overflow = 'hidden';
-            return () => {document.body.style.overflow = originalOverflow;}
-        }
-    })
-
-    return (
-        <div id='nav-container'>
-            <div 
-                ref={backgroundRef}
-                id='background-menu' 
-                className={isMenuOpen ? 'visible' : 'invisible'}
-            >
-                <div ref={mobileMenuRef} id="mobile-menu">
-                    <nav>
-                        <div id='mobile-menu-header'>
-                            <p id="user"><span><FontAwesomeIcon icon={faCircleUser} /></span> Лев А. В.</p>
-                            <button id='close-mobile-nav' onClick={handleCloseMenu}><FontAwesomeIcon icon={faBars}/></button>
-                        </div>
-
-                        <a href='#'>
-                            <span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание
-                        </a>
-                    </nav>
-                </div>
+  return (
+    <header>
+			<div className={menuVisible ? 'visible' : 'invisible'} id='background'>
+				<div id='mobile-menu'>
+          <div id='mobile-menu-header'>
+            <div id='user'>
+              <p id='name'>Меню</p>
+              <p id='branch'></p>
             </div>
+            <button onClick={handleCloseMenu} id='close-mobile-nav'><span><FontAwesomeIcon icon={faXmark}/></span></button>
+          </div>
 
-            <header>
-                <nav>
-                    <button id='open-mobile-nav' onClick={handleOpenMenu}><span><FontAwesomeIcon icon={faBars}/></span></button>
-                    <a href='#'>Расписание</a>
-                </nav>
-            </header>
-        </div>
-    );
+          <ul>
+            <a id='item' onClick={() => {newPage('schedule'); handleCloseMenu()}}><span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание</a>
+          </ul>
+				</div>
+			</div>
+
+      <nav>
+        <a onClick={() => newPage('schedule')}><span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание</a>
+        <button onClick={handleOpenMenu} id='open-mobile-nav'><span><FontAwesomeIcon icon={faBars}/></span></button>
+      </nav>
+    </header>
+  )
 }
 
-export default Header;
+export { Header }

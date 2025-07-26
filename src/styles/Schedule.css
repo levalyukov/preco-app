@@ -1,42 +1,86 @@
-#schedule-container {
+main#schedule {
+  h1 {
+    margin: 25px 5px;
+    font-size: 24px;
+    color: rgb(30, 37, 62, 1);
+  }
+  section#render {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     align-items: stretch;
     gap: 10px 5px;
-    article {
-        background-color: rgba(158, 174, 232, 0.05);
-        border: 1px solid rgba(65, 78, 125, 0.25);
-        border-radius: 10px;
 
-        margin: 0 5px;
-        box-sizing: border-box;
-        padding: 10px;
-        height: 100%;
+    article {
+      border: 1px solid rgba(65, 78, 125, 0.25);
+      border-radius: 10px;
+
+      margin: 0 5px;
+      box-sizing: border-box;
+      padding: 10px;
+      height: 100%;
+
+      color: rgb(30, 37, 62, .75);
+      #header {
+        padding: 5px 15px;
+        margin: 0;
 
         color: rgb(30, 37, 62, 1);
-        #header {
-            padding: 5px 15px;
-            margin: 0;
-            
-            color: rgb(30, 37, 62, 1);
+        text-align: center;
+        font-weight: 500;
+      } 
+
+    	#data-container {
+        table {
+          width: 100%;
+          margin: 15px 0;
+
+          td {
+            width: 50%;
+            padding: 15px 0;
             text-align: center;
-            font-weight: 500;
-        } 
-        
-        #data-container {
-            table {
-                width: 100%;
-                margin: 15px 0;
-                td {
-                    text-align: center;
-                }
-            }
+            vertical-align: text-top;
+          }
         }
+    	}
     }
+  }
+
+  section#error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p {color: rgb(30, 37, 62, 1);}
+    button {
+			background-color: rgb(250, 251, 254);
+      border: 1px solid rgba(65, 78, 125, 0.25);
+			padding: 10px 25px;
+			margin: 5px;
+			border-radius: 10px;
+			cursor: pointer;
+
+			font-size: 16px;
+			color: rgb(30, 37, 62, .75);
+
+      margin: 15px 0;
+      padding: 20px 35px;
+    } button:hover {
+			background-color: rgba(158, 174, 232, 0.05);
+			color: rgb(30, 37, 62, 1);
+    }
+  }
+
+  section#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p {color: rgb(30, 37, 62, 1);}
+  }
 }
 
-@media (max-width: 475px) {
-    #schedule-container {
-        padding: 25px;
-    }
+@media (max-width: 750px) {
+  #schedule {
+    padding: 25px;
+  }
 }

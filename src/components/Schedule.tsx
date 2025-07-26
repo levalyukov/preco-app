@@ -1,172 +1,92 @@
-import React from 'react';
 import '../styles/Schedule.css'
+import { useEffect, useState } from 'react';
 
-const Schedule: React.FC = () => {
-    enum LessonType { LESSON = "", EXAM = ", Экзамен" }
+function Schedule() {
+	const [scheduleData, setSchedule] = useState<ScheduleStruct>({});
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(false);
 
-    interface Lesson {
-        type: LessonType,
-        name: string,
-        teacher: string,
-        auditorium: number,
-        lesson_start: string,
-        lesson_end: string
-    };
-        
-    interface DaySchedule {
-        date: string,
-        sctruct: { [key:number]: Lesson }
-    };
+	interface ScheduleStruct {
+		[date:string]: {
+			[index:number]: LessonStruct
+		}
+	}
+	
+	interface LessonStruct {
+		name:string,
+		coupe:string,
+		time_start:string,
+		time_end:string
+	}
 
-    const scheduleRender = () => {
-        const schedule: {[key: number]: DaySchedule } = {
-            0: {
-                date: '07.06.2025',
-                sctruct: {
-                    1: {
-                        type: LessonType.LESSON,
-                        name: 'География',
-                        teacher: 'Пашкевич Л.В.',
-                        auditorium: 308,
-                        lesson_start: '8:30',
-                        lesson_end: '10:00'
-                    },
-                    2: {
-                        type: LessonType.LESSON,
-                        name: 'История',
-                        teacher: 'Панова Л.В.',
-                        auditorium: 401,
-                        lesson_start: '10:10',
-                        lesson_end: '11:40'
-                    }
-                }
-            },
-            1: {
-                date: '08.06.2025',
-                sctruct: {
-                    1: {
-                        type: LessonType.EXAM,
-                        name: 'Физика',
-                        teacher: 'Волкова К.В.',
-                        auditorium: 108,
-                        lesson_start: '8:30',
-                        lesson_end: '10:00'
-                    }
-                }
-            },
-            2: {
-                date: '08.06.2025',
-                sctruct: {
-                    1: {
-                        type: LessonType.EXAM,
-                        name: 'Физика',
-                        teacher: 'Волкова К.В.',
-                        auditorium: 108,
-                        lesson_start: '8:30',
-                        lesson_end: '10:00'
-                    },
-                    2: {
-                        type: LessonType.EXAM,
-                        name: 'История',
-                        teacher: 'Панова Л.В.',
-                        auditorium: 110,
-                        lesson_start: '10:10',
-                        lesson_end: '11:40'
-                    }
-                }
-            },
-            3: {
-                date: '07.06.2025',
-                sctruct: {
-                    1: {
-                        type: LessonType.LESSON,
-                        name: 'География',
-                        teacher: 'Пашкевич Л.В.',
-                        auditorium: 308,
-                        lesson_start: '8:30',
-                        lesson_end: '10:00'
-                    },
-                    2: {
-                        type: LessonType.LESSON,
-                        name: 'История',
-                        teacher: 'Панова Л.В.',
-                        auditorium: 401,
-                        lesson_start: '10:10',
-                        lesson_end: '11:40'
-                    }
-                }
-            },
-            4: {
-                date: '08.06.2025',
-                sctruct: {
-                    1: {
-                        type: LessonType.EXAM,
-                        name: 'Физика',
-                        teacher: 'Волкова К.В.',
-                        auditorium: 108,
-                        lesson_start: '8:30',
-                        lesson_end: '10:00'
-                    }
-                }
-            },
-            5: {
-                date: '08.06.2025',
-                sctruct: {
-                    1: {
-                        type: LessonType.EXAM,
-                        name: 'Физика',
-                        teacher: 'Волкова К.В.',
-                        auditorium: 108,
-                        lesson_start: '8:30',
-                        lesson_end: '10:00'
-                    },
-                    2: {
-                        type: LessonType.EXAM,
-                        name: 'История',
-                        teacher: 'Панова Л.В.',
-                        auditorium: 110,
-                        lesson_start: '10:10',
-                        lesson_end: '11:40'
-                    }
-                }
-            }
-        };
+	useEffect(() => {
+		document.title = "PrecoApp: Расписание";
+		async function loadingSchedule() {
+			try {
+				const res = await fetch("http://192.168.31.143:3000/schedule")
+				const data = await res.json()
+				setSchedule(data)
+				setError(false)
+				setLoading(false)
+			} catch (err) {
+				console.error(err)
+				setError(true)
+				setLoading(false)
+			}
+		}; loadingSchedule()
+	}, [])
 
-        const renderSchedule = () => {
-            return Object.entries(schedule).map(([key, value]) => (
-                <div>
-                    <article>
-                        <p id='header'>{value.date}</p>
-                        <div id='data-container'>
-                        {Object.entries(value.sctruct).map(([lessonKey, lesson]) => (
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>{lessonKey} пара</td>
-                                        <td>{lesson.name}{lesson.type}</td>
-                                    </tr>
-                                </tbody>
+	if (loading) return (
+		<main id='schedule'>
+			<section id='loading'>
+				<p>Подключение к серверу...</p>
+			</section>
+		</main>
+	)
+	if (error) return (
+		<main id='schedule'>
+			<section id='error'>
+				<p>Ошибка подключения к серверу.</p>
+				<button onClick={() => window.location.reload()}>Повторить попытку</button>
+			</section>
+		</main>
+	)
+	
+	if (Object.keys(scheduleData).length === 0) return (
+		<main id='schedule'>
+			<section id='error'>
+				<p>Нет расписания.</p>
+				<button onClick={() => window.location.reload()}>Повторить попытку</button>
+			</section>
+		</main>
+	)
 
-                                <tbody>
-                                    <tr>
-                                        <td>{lesson.lesson_start} — {lesson.lesson_end}</td>
-                                        <td>{lesson.teacher} {lesson.auditorium} КБ</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        ))}
-                        </div>
-                    </article>
-                </div>
-            ));
-        }
-
-        return <div id='schedule-container'>{renderSchedule()}</div>
-    }
-
-    return (
-        scheduleRender()
-    );
+  return (
+    <main id='schedule'>
+			<h1>Расписание 110 группы</h1>
+			<section id='render'>
+				{Object.entries(scheduleData).map(([key, value]) => (
+					<article className='current'>
+						<p id='header'>{key}</p>
+						<div id='data-container'>
+							<table>
+							{Object.entries(value).map(([index, lesson]) => (
+								<>
+  			    		  <tbody>
+  			    		    <tr>
+  			    		      <td>{index} пара <br /> {lesson.time_start} — {lesson.time_end}</td>
+  			    		      <td>{lesson.name}</td>
+  			    		    </tr>
+  			    		  </tbody>
+								</>
+							))}
+							</table>
+						</div>
+					</article>
+				))}
+			</section>
+		</main>
+  )
 }
 
-export default Schedule;
+export { Schedule }

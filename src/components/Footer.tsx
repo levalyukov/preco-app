@@ -1,16 +1,13 @@
-import React from 'react';
 import '../styles/Footer.css'
 
-const Footer: React.FC = () => {
-    //  const year = new Date().getFullYear();
-
+function Footer() {
     return (
-        <div id='footer-container'>
+        <footer>
             <p>
-                <a target="_blank" href='https://github.com/levalyukov/preco-app'>GitHub</a> · v1.0.0
+                <a target='_blank' href='https://github.com/levalyukov/preco-app'>GitHub</a> · v0.0.0
             </p>
-        </div>
-    );
+        </footer>
+    )
 }
 
-export default Footer;
+export { Footer }
