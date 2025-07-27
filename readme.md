@@ -22,7 +22,7 @@ This application is a learning exercise. Consequently, some implementation choic
 ## Install
 
 ```bash
-git clone https://github.com/levalyukov/preco-app
+git clone https://github.com/levalyukov/preco-app.git
 cd preco-app
 npm run dev -- --host
 ```
