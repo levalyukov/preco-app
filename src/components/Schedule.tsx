@@ -5,10 +5,9 @@ function Schedule() {
 	const [scheduleData, setSchedule] = useState<ScheduleStruct>({})
 	const [scheduleLoaded, setScheduleLoading] = useState(!true)
 	const [scheduleError, setScheduleError] = useState(false)
+	const [scheduleVisible, setScheduleVisible] = useState(false)
 
 	const [eduGroup, setEduGroup] = useState<EduGroup>({})
-
-	const [scheduleVisible, setScheduleVisible] = useState(false)
 	const [groupSelected, setGroup] = useState<String>("100");
 	const groupList = useRef<HTMLSelectElement>(null)
 
