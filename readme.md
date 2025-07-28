@@ -26,12 +26,16 @@ PrecoApp - Application that allows you to get schedule of the Ural Regional Coll
 ```bash
 git clone https://github.com/levalyukov/preco-app.git
 cd preco-app
+```
+
+Start the app:
+```bash
 npm run dev -- --host
 ```
 
-Start server:
+Start the server:
 ```bash
-cd src/server
+cd src/backend
 node server.js
 ```
 
