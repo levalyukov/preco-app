@@ -40,21 +40,17 @@ main#schedule {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     align-items: stretch;
     gap: 10px 5px;
-
     article {
       border: 1px solid rgba(65, 78, 125, 0.25);
       border-radius: 10px;
-
       margin: 0 5px;
       box-sizing: border-box;
       padding: 10px;
       height: 100%;
-
       color: rgb(30, 37, 62, .75);
       #header {
         padding: 5px 15px;
         margin: 0;
-
         color: rgb(30, 37, 62, 1);
         text-align: center;
         font-weight: 500;
@@ -76,7 +72,7 @@ main#schedule {
     }
   }
 
-  section#error {
+  section#notice {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,14 +96,6 @@ main#schedule {
       border: 1px solid rgba(65, 78, 125, 0.5);
 			color: rgb(30, 37, 62, 1);
     }
-  }
-
-  section#loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    p {color: rgb(30, 37, 62, 1);}
   }
 }
 

@@ -89,19 +89,25 @@ app.get('/groups', async (req, res) => {
   let groups_dict = {'groups': {}}
   let group_arr = []
 
-  browser = await chromium.launch()
-  const page = await browser.newPage()
-  await page.goto(`https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php?datebegin[day]=13&datebegin[month]=1&datebegin[year]=2025&datefinish[day]=18&datefinish[month]=1&datefinish[year]=2025`)
+  try {
+    browser = await chromium.launch()
+    const page = await browser.newPage()
+    await page.goto(`https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php?datebegin[day]=13&datebegin[month]=1&datebegin[year]=2025&datefinish[day]=18&datefinish[month]=1&datefinish[year]=2025`)
 
-  await page.waitForSelector('.select2-selection__rendered')
-  await page.click('.select2-selection__rendered')
-  await page.waitForSelector('.select2-results__options')
-  let selection = page.locator('#select2-id_listgroups-results')
-  let options = selection.locator('.select2-results__option')
+    await page.waitForSelector('.select2-selection__rendered')
+    await page.click('.select2-selection__rendered')
+    await page.waitForSelector('.select2-results__options')
+    let selection = page.locator('#select2-id_listgroups-results')
+    let options = selection.locator('.select2-results__option')
 
-  for (let element of await options.all()) {
-    let content = await element.innerText()
-    group_arr.push(content)
+    for (let element of await options.all()) {
+      let content = await element.innerText()
+      group_arr.push(content)
+    }
+  } catch (err) {
+    console.error(
+      "Getting all groups error: ", err
+    )
   }
 
   groups_dict["groups"] = group_arr  

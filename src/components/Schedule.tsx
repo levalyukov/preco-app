@@ -12,6 +12,7 @@ function Schedule() {
 	const groupList = useRef<HTMLSelectElement>(null)
 
 	const [loaded, setLoading] = useState(true)
+	const [error, setError] = useState(false)
 
 	interface ScheduleStruct {
 		[date:string]: {
@@ -39,6 +40,7 @@ function Schedule() {
 				setEduGroup(groups)
 			} catch (err) {
 				console.error(err)
+				setError(true)
 			} finally {
 				setLoading(false)
 			}
@@ -83,7 +85,7 @@ function Schedule() {
 	function getSchedule() {
 		if (Object.keys(scheduleData).length === 0) {
 			return (
-				<section id="error">
+				<section id="notice">
 					<p>Расписания нет.</p>
 				</section>
 			)
@@ -117,12 +119,12 @@ function Schedule() {
 	function getScheduleState() {
 		if (scheduleLoaded) {
 			return (
-				<section id='loading'><p>Загрузка расписания...</p></section>
+				<section id='notice'><p>Загрузка расписания...</p></section>
 			)
 		}
 		if (scheduleError) {
 			return (
-				<section id='error'>
+				<section id='notice'>
 					<p>Ошибка подключения к серверу.</p>
 					<button onClick={getScheduleData}>Повторить попытку</button>
 				</section>
@@ -133,8 +135,19 @@ function Schedule() {
 	if (loaded) {
 		return (
 			<main id='schedule'>
-				<section id="loading">
+				<section id="notice">
 					<p>Подключение к серверу...</p>
+				</section>
+			</main>
+		)
+	}
+
+	if (error) {
+		return (
+			<main id='schedule'>
+				<section id="notice">
+					<p>Ошибка подключения к серверу.</p>
+					<button onClick={() => window.location.reload()}>Повторить попытку</button>
 				</section>
 			</main>
 		)
