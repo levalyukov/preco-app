@@ -4,6 +4,37 @@ main#schedule {
     font-size: 24px;
     color: rgb(30, 37, 62, 1);
   }
+
+  div#controlPanel {
+    margin: 5px;
+    nav {
+      display: flex;
+      align-items: center;
+      p {
+        color: rgb(30, 37, 62, 1);
+      }
+    }
+
+    button {
+			background-color: rgb(250, 251, 254);
+      border: 1px solid rgba(65, 78, 125, 0.25);
+			padding: 10px 25px;
+			margin: 5px;
+			border-radius: 10px;
+			cursor: pointer;
+
+			font-size: 16px;
+			color: rgb(30, 37, 62, .75);
+
+      margin: 15px 0;
+      padding: 20px 35px;
+    } button:hover {
+			background-color: rgba(158, 174, 232, 0.05);
+      border: 1px solid rgba(65, 78, 125, 0.5);
+			color: rgb(30, 37, 62, 1);
+    }
+  }
+
   section#render {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -66,6 +97,7 @@ main#schedule {
       padding: 20px 35px;
     } button:hover {
 			background-color: rgba(158, 174, 232, 0.05);
+      border: 1px solid rgba(65, 78, 125, 0.5);
 			color: rgb(30, 37, 62, 1);
     }
   }

@@ -1,10 +1,18 @@
 import '../styles/Schedule.css'
-import { useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 function Schedule() {
-	const [scheduleData, setSchedule] = useState<ScheduleStruct>({});
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(false);
+	const [scheduleData, setSchedule] = useState<ScheduleStruct>({})
+	const [scheduleLoaded, setScheduleLoading] = useState(!true)
+	const [scheduleError, setScheduleError] = useState(false)
+
+	const [eduGroup, setEduGroup] = useState<EduGroup>({})
+
+	const [scheduleVisible, setScheduleVisible] = useState(false)
+	const [groupSelected, setGroup] = useState<String>("100");
+	const groupList = useRef<HTMLSelectElement>(null)
+
+	const [loaded, setLoading] = useState(true)
 
 	interface ScheduleStruct {
 		[date:string]: {
@@ -19,51 +27,70 @@ function Schedule() {
 		time_end:string
 	}
 
+	interface EduGroup {
+		[groups:string]: {array:Array<String>}
+	}
+
 	useEffect(() => {
 		document.title = "PrecoApp: Расписание";
 		async function loadingSchedule() {
 			try {
-				const res = await fetch("http://192.168.31.143:3000/schedule")
-				const data = await res.json()
-				setSchedule(data)
-				setError(false)
-				setLoading(false)
+				const allEduGroups = await fetch("http://192.168.31.143:3000/groups")
+				const groups = await allEduGroups.json()
+				setEduGroup(groups)
 			} catch (err) {
 				console.error(err)
-				setError(true)
+			} finally {
 				setLoading(false)
 			}
 		}; loadingSchedule()
 	}, [])
 
-	if (loading) return (
-		<main id='schedule'>
-			<section id='loading'>
-				<p>Подключение к серверу...</p>
-			</section>
-		</main>
-	)
-	if (error) return (
-		<main id='schedule'>
-			<section id='error'>
-				<p>Ошибка подключения к серверу.</p>
-				<button onClick={() => window.location.reload()}>Повторить попытку</button>
-			</section>
-		</main>
-	)
-	
-	if (Object.keys(scheduleData).length === 0) return (
-		<main id='schedule'>
-			<section id='error'>
-				<p>Нет расписания.</p>
-				<button onClick={() => window.location.reload()}>Повторить попытку</button>
-			</section>
-		</main>
-	)
+	async function getScheduleData() {
+		try {
+			setScheduleLoading(true)
+			const current_group = String(groupList?.current?.value)
+			setGroup(current_group)
+			setScheduleVisible(false)
+			const server = await fetch("http://192.168.31.143:3000/schedule?group="+current_group)
+			const schedule = await server.json()
+			setSchedule(schedule)
+			setScheduleVisible(true)
+			setScheduleError(false)
+		} catch (err) {
+			setScheduleError(true)
+		} finally {
+			setScheduleLoading(false)
+		}
+	}
 
-  return (
-    <main id='schedule'>
-			<h1>Расписание 110 группы</h1>
+	function controlPanel() {
+		return (
+			<div id='controlPanel'>
+				<nav>
+					<p>Учебная группа:</p>
+					<select ref={groupList}>
+						{Object.entries(eduGroup.groups).map(([_index, _group]) => (
+							<option>{_group}</option>
+						))}
+					</select>
+				</nav>
+
+				<button onClick={getScheduleData}>Получить расписание</button>
+			</div>
+		)
+	}
+
+	function getSchedule() {
+		if (Object.keys(scheduleData).length === 0) {
+			return (
+				<section id="error">
+					<p>Расписания нет.</p>
+				</section>
+			)
+		}
+
+		return (
 			<section id='render'>
 				{Object.entries(scheduleData).map(([key, value]) => (
 					<article className='current'>
@@ -85,6 +112,45 @@ function Schedule() {
 					</article>
 				))}
 			</section>
+		)
+	}
+
+	function getScheduleState() {
+		if (scheduleLoaded) {
+			return (
+				<section id='loading'><p>Загрузка расписания...</p></section>
+			)
+		}
+		if (scheduleError) {
+			return (
+				<section id='error'>
+					<p>Ошибка подключения к серверу.</p>
+					<button onClick={getScheduleData}>Повторить попытку</button>
+				</section>
+			)
+		}
+	}
+
+	if (loaded) {
+		return (
+			<main id='schedule'>
+				<section id="loading">
+					<p>Подключение к серверу...</p>
+				</section>
+			</main>
+		)
+	}
+
+  return (
+    <main id='schedule'>
+			{controlPanel()}
+			{getScheduleState()}
+			{scheduleVisible ? (
+				<>
+					<h1>Расписание {groupSelected}</h1>
+					{getSchedule()}
+				</>
+			) : (<></>)}
 		</main>
   )
 }
