@@ -9,7 +9,8 @@ This application is a learning exercise. Consequently, some implementation choic
 ## TODO
 
 - [X] Parser through Playwright
-- [ ] Getting schedules for other groups
+- [X] Getting schedules for other groups
+- [ ] Getting a weekly schedule for groups
 
 ## Main modules
 
