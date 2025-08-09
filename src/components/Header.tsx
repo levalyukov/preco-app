@@ -25,7 +25,7 @@ function Header({newPage}: {newPage: (page: 'schedule') => void}) {
               <p id='name'>Меню</p>
               <p id='branch'></p>
             </div>
-            <button onClick={handleCloseMenu} id='close-mobile-nav'><span><FontAwesomeIcon icon={faXmark}/></span></button>
+            <button onClick={handleCloseMenu} id='nav'><span><FontAwesomeIcon icon={faXmark}/></span></button>
           </div>
 
           <ul>
@@ -36,7 +36,7 @@ function Header({newPage}: {newPage: (page: 'schedule') => void}) {
 
       <nav>
         <a onClick={() => newPage('schedule')}><span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание</a>
-        <button onClick={handleOpenMenu} id='open-mobile-nav'><span><FontAwesomeIcon icon={faBars}/></span></button>
+        <button onClick={handleOpenMenu} id='nav' className='open-nav'><span><FontAwesomeIcon icon={faBars}/></span></button>
       </nav>
     </header>
   )

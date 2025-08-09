@@ -44,6 +44,34 @@ button {
   }
 } 
 
+button#nav {
+  padding: 10px;
+  width: 35px;
+  height: 35px;
+  outline: none;
+  border-radius: 10px;
+  border: 1px solid rgba(65, 78, 125, 0.25);
+  background-color: rgba(158, 174, 232, 0);
+  color: rgb(30, 37, 62, 0.75);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    height: 25px;
+  }
+} button#nav:hover {
+  border: 1px solid rgba(65, 78, 125, 0.5);
+  background-color: rgba(158, 174, 232, 0.075);
+  color: rgb(30, 37, 62,1);
+}
+
 select {
   background-color: rgb(250, 251, 254);
   border: 1px solid rgba(65, 78, 125, 0.25);

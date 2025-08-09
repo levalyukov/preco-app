@@ -1,5 +1,4 @@
 header {
-
   nav {
     padding: 25px 5px;
 		display: flex;
@@ -27,28 +26,7 @@ header {
     color: rgb(30, 37, 62, 1);
 	}
 
-  button#open-mobile-nav {
-    display: none;
-    padding: 10px;
-    width: 35px;
-    height: 35px;
-    outline: none;
-    border-radius: 10px;
-    border: 1px solid rgba(65, 78, 125, 0.25);
-    background-color: rgba(158, 174, 232, 0);
-    color: rgb(30, 37, 62, 0.75);
-    cursor: pointer;
-    span {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-
-  } button#open-mobile-nav:hover {
-    border: 1px solid rgba(65, 78, 125, 0.5);
-    background-color: rgba(158, 174, 232, 0.075);
-    color: rgb(30, 37, 62,1);
-  }
+  button#nav.open-nav {display: none;}
 }
 
 #background {
@@ -88,36 +66,7 @@ header {
           width: 90%;
         }
       }
-      button#close-mobile-nav {
-        padding: 10px;
-        width: 35px;
-        height: 35px;
-        outline: none;
-        border-radius: 10px;
-        border: 1px solid rgba(65, 78, 125, 0.25);
-        background-color: rgba(158, 174, 232, 0);
-        color: rgb(30, 37, 62, 0.75);
-        cursor: pointer;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        span {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 0;
-          padding: 0;
-          width: 25px;
-          height: 25px;
-        }
-      } button#close-mobile-nav:hover {
-        border: 1px solid rgba(65, 78, 125, 0.5);
-        background-color: rgba(158, 174, 232, 0.075);
-        color: rgb(30, 37, 62,1);
-      }
     }
-
     ul {
       overflow-y: scroll;
 
@@ -151,7 +100,7 @@ header {
 @media (max-width: 750px) {
   header {
     nav {a {display: none;} padding: 25px 30px;}
-    button#open-mobile-nav {display: block;}
+    button#nav.open-nav {display: flex;}
   }
 
   #background {display: block;}
