@@ -6,9 +6,10 @@ function Schedule() {
 	const [scheduleLoaded, setScheduleLoading] = useState(!true)
 	const [scheduleError, setScheduleError] = useState(false)
 	const [scheduleVisible, setScheduleVisible] = useState(false)
+	const [weekCurrent, setCurrentWeek] = useState("")
 
 	const [eduGroup, setEduGroup] = useState<EduGroup>({})
-	const [groupSelected, setGroup] = useState<String>("100");
+	const [groupSelected, setGroup] = useState<String>("100")
 	const groupList = useRef<HTMLSelectElement>(null)
 
 	const [loaded, setLoading] = useState(true)
@@ -31,6 +32,17 @@ function Schedule() {
 		[groups:string]: {array:Array<String>}
 	}
 
+
+	async function getCurrentWeek() {
+		try {
+			const connect = await fetch("http://192.168.31.143:3000/current_date")
+			const data = await connect.json()
+			setCurrentWeek(data.current)
+		} catch {
+			setCurrentWeek("")
+		}
+	}
+
 	useEffect(() => {
 		document.title = "PrecoApp: Расписание";
 		async function loadingSchedule() {
@@ -44,7 +56,9 @@ function Schedule() {
 			} finally {
 				setLoading(false)
 			}
-		}; loadingSchedule()
+		}
+		loadingSchedule()
+		getCurrentWeek()
 	}, [])
 
 	async function getScheduleData() {
@@ -159,7 +173,7 @@ function Schedule() {
 			{getScheduleState()}
 			{scheduleVisible ? (
 				<>
-					<h1>Расписание {groupSelected}</h1>
+					<h1>Расписание {groupSelected} <p id='scheduleDate'>{weekCurrent}</p></h1>
 					{getSchedule()}
 				</>
 			) : (<></>)}

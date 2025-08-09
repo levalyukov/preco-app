@@ -14,6 +14,25 @@ code {
 
 a {
   text-decoration: none;
+  font-size: 16px;
+} p {
+  font-size: 16px;
+}
+
+button {
+	background-color: rgb(250, 251, 254);
+  border: 1px solid rgba(65, 78, 125, 0.25);
+	margin: 5px;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+	color: rgb(30, 37, 62, .75);
+  margin: 15px 0;
+  padding: 20px 35px;
+} button:hover {
+	background-color: rgba(158, 174, 232, 0.05);
+  border: 1px solid rgba(65, 78, 125, 0.5);
+	color: rgb(30, 37, 62, 1);
 }
 
 .app {
@@ -43,7 +62,7 @@ select {
 } select, ::picker(select) {
   appearance: base-select;
   border-radius: 10px;
-  border: 1px solid rgba(65, 78, 125, 0.5);
+  border: 1px solid rgba(65, 78, 125, 0.25);
   background-color: rgb(250, 251, 254);
 } ::picker(select) {
   height: 250px;
@@ -66,8 +85,17 @@ select {
 } ::picker(select)::-webkit-scrollbar {
   width: 8px;
 } ::picker(select)::-webkit-scrollbar-track {
-  border-radius: 10px;
+  background-color: rgba(158, 174, 232, 0.1);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
 } ::picker(select)::-webkit-scrollbar-thumb {
   background: rgba(65, 78, 125, 1);
   border-radius: 10px;
+  min-height: 15px;
+}
+
+@media (max-width: 500px) {
+  select {
+    margin: 0;
+  }
 }

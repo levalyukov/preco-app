@@ -1,13 +1,34 @@
 import cors from 'cors'
 import express from 'express'
-import { chromium, errors } from 'playwright'
-import { Extension } from 'typescript'
+import { chromium } from 'playwright'
 
 const app = express()
 const port = 3000
 const host = '192.168.31.143'
 
 app.use(cors()); 
+
+function getCurrentWeekDates() {
+  const today = new Date()
+  const dayOfWeek = today.getDay()
+  const monday = new Date(today)
+  monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1))
+  const weekDates = []
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(monday)
+    date.setDate(monday.getDate() + i)
+    weekDates.push(date)
+  }
+
+  return weekDates;
+}
+
+app.get('/current_date', async (req, res) => {
+  const week = getCurrentWeekDates()
+  res.send(
+    {"current": String(week.map(d => d.toLocaleDateString("ru-ru"))[0]+" — "+week.map(d => d.toLocaleDateString("ru-ru"))[week.length-1])}
+  )
+})
 
 app.get('/schedule', async (req, res) => {
   let browser = null
@@ -17,15 +38,16 @@ app.get('/schedule', async (req, res) => {
   try {
     browser = await chromium.launch()
     const page = await browser.newPage()
-    
-    await page.goto(`https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php?datebegin[day]=13&datebegin[month]=1&datebegin[year]=2025&datefinish[day]=18&datefinish[month]=1&datefinish[year]=2025`)
+    const week = getCurrentWeekDates();
+
+    await page.goto(`https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php?datebegin[day]=`+week.map(d => d.getDate())[0]+`&datebegin[month]=`+week.map(d => d.getMonth()+1)[0]+`&datebegin[year]=`+week.map(d => d.getFullYear())[0]+`&datefinish[day]=`+week.map(d => d.getDate())[week.length-1]+`&datefinish[month]=`+week.map(d => d.getMonth()+1)[week.length-1]+`&datefinish[year]=`+week.map(d => d.getFullYear())[week.length-1])
     await page.waitForSelector(".select2-selection__rendered")
     await page.click(".select2-selection__rendered")
     await page.waitForSelector(".select2-search__field")
     await page.fill(".select2-search__field", req.query.group)
     await page.click(".select2-results__option")
     await page.click("#id_submitbutton")
-    await page.waitForSelector(".urk_shedule", {'timeout': 1500})
+    await page.waitForSelector(".urk_shedule", {'timeout': 500})
 
     let shedule = page.locator(".urk_shedule")
     let shedule_blocks = shedule.locator(".urk_sheduleblock")
@@ -92,7 +114,7 @@ app.get('/groups', async (req, res) => {
   try {
     browser = await chromium.launch()
     const page = await browser.newPage()
-    await page.goto(`https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php?datebegin[day]=13&datebegin[month]=1&datebegin[year]=2025&datefinish[day]=18&datefinish[month]=1&datefinish[year]=2025`)
+    await page.goto(`https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php`)
 
     await page.waitForSelector('.select2-selection__rendered')
     await page.click('.select2-selection__rendered')

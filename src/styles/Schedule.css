@@ -3,6 +3,15 @@ main#schedule {
     margin: 25px 5px;
     font-size: 24px;
     color: rgb(30, 37, 62, 1);
+
+    display: flex;
+    align-items: center;
+    p#scheduleDate {
+      font-size: 16px;
+      color: rgb(30, 37, 62, .75);
+      font-weight: normal;
+      margin-left: 15px;
+    }
   }
 
   div#controlPanel {
@@ -12,26 +21,12 @@ main#schedule {
       align-items: center;
       p {
         color: rgb(30, 37, 62, 1);
+        font-size: 16px;
       }
     }
 
     button {
-			background-color: rgb(250, 251, 254);
-      border: 1px solid rgba(65, 78, 125, 0.25);
-			padding: 10px 25px;
-			margin: 5px;
-			border-radius: 10px;
-			cursor: pointer;
-
-			font-size: 16px;
-			color: rgb(30, 37, 62, .75);
-
-      margin: 15px 0;
       padding: 20px 35px;
-    } button:hover {
-			background-color: rgba(158, 174, 232, 0.05);
-      border: 1px solid rgba(65, 78, 125, 0.5);
-			color: rgb(30, 37, 62, 1);
     }
   }
 
@@ -46,8 +41,8 @@ main#schedule {
       margin: 0 5px;
       box-sizing: border-box;
       padding: 10px;
-      height: 100%;
       color: rgb(30, 37, 62, .75);
+      font-size: 16px;
       #header {
         padding: 5px 15px;
         margin: 0;
@@ -106,12 +101,23 @@ main#schedule {
   }
 }
 
-@media (max-width: 450px) {
-  div#controlPanel {
-    nav {
-      justify-content: space-between;
-    } button {
-      width: 100%;
+@media (max-width: 500px) {
+  main#schedule {
+    h1 {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex-direction: column;
+      p#scheduleDate {
+        margin-left: 0;
+      }
+    }
+    div#controlPanel {
+      nav {
+        justify-content: space-between;
+      } button {
+        width: 100%;
+      }
     }
   }
 }
