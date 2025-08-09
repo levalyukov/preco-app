@@ -11,7 +11,7 @@ PrecoApp - Application that allows you to get schedule of the Ural Regional Coll
 
 - [X] Parser through Playwright
 - [X] Getting schedules for other groups
-- [ ] Getting a weekly schedule for groups
+- [X] Getting a weekly schedule for groups
 
 ## Main modules
 
