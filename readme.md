@@ -26,6 +26,8 @@ PrecoApp - Application that allows you to get schedule of the Ural Regional Coll
 ```bash
 git clone https://github.com/levalyukov/preco-app.git
 cd preco-app
+
+npm install
 ```
 
 Start the app:
