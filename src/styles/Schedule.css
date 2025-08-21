@@ -38,7 +38,6 @@ main#schedule {
       border: 1px solid rgba(65, 78, 125, 0.25);
       border-radius: 10px;
       margin: 0 5px;
-      box-sizing: border-box;
       padding: 10px;
       color: rgb(30, 37, 62, .75);
       font-size: 16px;
@@ -103,7 +102,6 @@ main#schedule {
 @media (max-width: 500px) {
   main#schedule {
     h1 {
-      display: flex;
       justify-content: flex-start;
       align-items: flex-start;
       flex-direction: column;

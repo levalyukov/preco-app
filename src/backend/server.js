@@ -99,7 +99,7 @@ app.get('/schedule', async (req, res) => {
     }
   } catch (error) {
     console.error(
-      "Parser error: ", error
+      "Schedule parser error: ", error
     )
   }
 
