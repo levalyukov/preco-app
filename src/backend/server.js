@@ -36,7 +36,7 @@ app.get('/schedule', async (req, res) => {
   let index = 0
 
   try {
-    browser = await chromium.launch()
+    browser = await chromium.launch({headless: true})
     const page = await browser.newPage()
     const week = getCurrentWeekDates();
 
@@ -112,7 +112,7 @@ app.get('/groups', async (req, res) => {
   let group_arr = []
 
   try {
-    browser = await chromium.launch()
+    browser = await chromium.launch({headless: true})
     const page = await browser.newPage()
     await page.goto(`https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php`)
 
