@@ -4,7 +4,7 @@ import { chromium } from 'playwright'
 
 const app = express()
 const port = 3000
-const host = '192.168.31.143'
+const host = '0.0.0.0'
 
 app.use(cors()); 
 
