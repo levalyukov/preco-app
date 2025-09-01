@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" vite",
-    "server": "cd src/backend && node server.js"
+    "server": "cd src/backend && node server.js",
+    "build": "tsc -b && vite build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
