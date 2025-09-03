@@ -4,7 +4,7 @@
   "version": "0.2.1",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"npm run server\" vite",
+    "dev": "vite",
     "server": "cd src/backend && node server.js",
     "build": "tsc -b && vite build"
   },
