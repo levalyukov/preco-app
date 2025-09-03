@@ -3,7 +3,7 @@ import express from 'express'
 import { chromium } from 'playwright'
 
 const app = express()
-const port = 3000
+const port = 3001
 const host = '0.0.0.0'
 
 app.use(cors()); 
@@ -23,14 +23,14 @@ function getCurrentWeekDates() {
   return weekDates;
 }
 
-app.get('/current_date', async (req, res) => {
+app.get('/api/current_date', async (req, res) => {
   const week = getCurrentWeekDates()
   res.send(
     {"current": String(week.map(d => d.toLocaleDateString("ru-ru"))[0]+" — "+week.map(d => d.toLocaleDateString("ru-ru"))[week.length-1])}
   )
 })
 
-app.get('/schedule', async (req, res) => {
+app.get('/api/schedule', async (req, res) => {
   let browser = null
   let result = {}
   let index = 0
@@ -106,7 +106,7 @@ app.get('/schedule', async (req, res) => {
   res.json(result)
 })
 
-app.get('/groups', async (req, res) => {
+app.get('/api/groups', async (req, res) => {
   let browser = null
   let groups_dict = {'groups': {}}
   let group_arr = []

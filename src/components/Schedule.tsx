@@ -35,7 +35,7 @@ function Schedule() {
 
 	async function getCurrentWeek() {
 		try {
-			const connect = await fetch("http://localhost:3000/current_date")
+			const connect = await fetch("/api/current_date")
 			const data = await connect.json()
 			setCurrentWeek(data.current)
 		} catch {
@@ -47,7 +47,7 @@ function Schedule() {
 		document.title = "PrecoApp: Расписание";
 		async function loadingSchedule() {
 			try {
-				const allEduGroups = await fetch("http://localhost:3000/groups")
+				const allEduGroups = await fetch("/api/groups")
 				const groups = await allEduGroups.json()
 				setEduGroup(groups)
 			} catch (err) {
@@ -67,7 +67,7 @@ function Schedule() {
 			const current_group = String(groupList?.current?.value)
 			setGroup(current_group)
 			setScheduleVisible(false)
-			const server = await fetch("http://localhost:3000/schedule?group="+current_group)
+			const server = await fetch("/api/schedule?group="+current_group)
 			const schedule = await server.json()
 			setSchedule(schedule)
 			setScheduleVisible(true)
