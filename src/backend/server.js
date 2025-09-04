@@ -6,7 +6,7 @@ const app = express()
 const port = 3001
 const host = '0.0.0.0'
 
-app.use(cors()); 
+app.use(cors());
 
 function getCurrentWeekDates() {
   const today = new Date()
