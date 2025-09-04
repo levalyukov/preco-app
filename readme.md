@@ -12,6 +12,7 @@ PrecoApp - Application that allows you to get schedule of the Ural Regional Coll
 - [X] Parser through Playwright
 - [X] Getting schedules for other groups
 - [X] Getting a weekly schedule for groups
+- [X] Quickly get a schedule for a user-specified group
 
 ## Main modules
 
@@ -20,6 +21,7 @@ PrecoApp - Application that allows you to get schedule of the Ural Regional Coll
 - Parser: [Playwright](https://github.com/microsoft/playwright)
 - Icons: [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
 - Build: [Vite](https://github.com/vitejs/vite)
+- Server: [Nginx](https://github.com/nginx/nginx)
 
 ## Install
 

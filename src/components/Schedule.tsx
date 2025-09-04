@@ -35,7 +35,7 @@ function Schedule() {
 
 	async function getCurrentWeek() {
 		try {
-			const connect = await fetch("/api/current_date")
+			const connect = await fetch("http://localhost:3000/api/current_date")
 			const data = await connect.json()
 			setCurrentWeek(data.current)
 		} catch {
@@ -45,9 +45,15 @@ function Schedule() {
 
 	useEffect(() => {
 		document.title = "PrecoApp: Расписание";
+
+		if (localStorage.getItem("user_quick_schedule") != null) {
+			setGroup(String(localStorage.getItem("user_quick_schedule")));
+			getScheduleData(String(localStorage.getItem("user_quick_schedule")))
+		}
+
 		async function loadingSchedule() {
 			try {
-				const allEduGroups = await fetch("/api/groups")
+				const allEduGroups = await fetch("http://localhost:3000/api/groups")
 				const groups = await allEduGroups.json()
 				setEduGroup(groups)
 			} catch (err) {
@@ -61,13 +67,12 @@ function Schedule() {
 		getCurrentWeek()
 	}, [])
 
-	async function getScheduleData() {
+	async function getScheduleData(current_group:string) {
 		try {
 			setScheduleLoading(true)
-			const current_group = String(groupList?.current?.value)
 			setGroup(current_group)
 			setScheduleVisible(false)
-			const server = await fetch("/api/schedule?group="+current_group)
+			const server = await fetch("http://localhost:3000/api/schedule?group="+current_group)
 			const schedule = await server.json()
 			setSchedule(schedule)
 			setScheduleVisible(true)
@@ -91,7 +96,7 @@ function Schedule() {
 					</select>
 				</nav>
 
-				<button onClick={getScheduleData}>Получить расписание</button>
+				<button onClick={() => getScheduleData(String(groupList?.current?.value))}>Получить расписание</button>
 			</div>
 		)
 	}
@@ -140,7 +145,7 @@ function Schedule() {
 			return (
 				<section id='notice'>
 					<p>Ошибка подключения к серверу.</p>
-					<button onClick={getScheduleData}>Повторить попытку</button>
+					<button onClick={() => getScheduleData(String(groupList?.current?.value))}>Повторить попытку</button>
 				</section>
 			)
 		}

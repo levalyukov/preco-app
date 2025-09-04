@@ -9,7 +9,7 @@ header {
     align-items: center;
     padding: 15px 20px;
     margin: 0 10px 0 0;
-    color: rgb(30, 37, 62,.75);
+    color: rgb(30, 37, 62,.75)!important;
     font-weight: 500;
     cursor: pointer;
     span {
@@ -21,7 +21,7 @@ header {
       margin-right: 5px;
   	}
   } a:hover {
-    background-color: rgba(158, 174, 232, 0.09);
+    background-color: rgba(158, 174, 232, 0.09)!important;
     border-radius: 10px;
     color: rgb(30, 37, 62, 1);
 	}
@@ -35,7 +35,7 @@ header {
   width: 100vw;
   height: 100%;
 
-  background-color: rgba(30, 37, 62, 0.50);
+  background-color: rgba(30, 37, 62, 0.50)!important;
   margin: 0;
   padding: 0;
   opacity: 1;
@@ -43,7 +43,7 @@ header {
   #mobile-menu {
     width: 50%;
     height: 100%;
-    background-color: rgb(250,251,254);
+    background-color: rgb(250,251,254)!important;
 
     padding: 25px;
     #mobile-menu-header {
@@ -55,13 +55,13 @@ header {
         padding: 0 0 0 15px;
         p#name {
           margin: 0;
-          color: rgba(30, 37, 62, 1);
+          color: rgba(30, 37, 62, 1)!important;
           font-weight: 500;
         }
         p#branch {
           font-size: 12px;
           font-weight: normal;
-          color: rgba(30, 37, 62, .75);
+          color: rgba(30, 37, 62, .75)!important;
           margin: 10px 0;
           width: 90%;
         }
@@ -86,7 +86,7 @@ header {
     } ul::-webkit-scrollbar-track {
       border-radius: 10px;
     } ul::-webkit-scrollbar-thumb {
-      background: rgba(65, 78, 125, 0.25);
+      background: rgba(65, 78, 125, 0.25)!important;
       border-radius: 10px;
     } 
   }

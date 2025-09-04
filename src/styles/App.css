@@ -16,8 +16,8 @@ a {
 }
 
 button {
-	background-color: rgb(250, 251, 254);
-  border: 1px solid rgba(65, 78, 125, 0.25);
+	background-color: rgb(250, 251, 254)!important;
+  border: 1px solid rgba(65, 78, 125, 0.25)!important;
 	margin: 5px;
 	border-radius: 10px;
 	cursor: pointer;
@@ -26,8 +26,8 @@ button {
   margin: 15px 0;
   padding: 20px 35px;
 } button:hover {
-	background-color: rgba(158, 174, 232, 0.05);
-  border: 1px solid rgba(65, 78, 125, 0.5);
+	background-color: rgba(158, 174, 232, 0.05)!important;
+  border: 1px solid rgba(65, 78, 125, 0.5)!important;
 	color: rgb(30, 37, 62, 1);
 }
 
@@ -36,6 +36,7 @@ button {
   justify-content: center;
   align-items: center;
   main#app {
+    height: 100vh;
     width: 1000px;
   }
 } 
@@ -46,8 +47,8 @@ button#nav {
   height: 35px;
   outline: none;
   border-radius: 10px;
-  border: 1px solid rgba(65, 78, 125, 0.25);
-  background-color: rgba(158, 174, 232, 0);
+  border: 1px solid rgba(65, 78, 125, 0.25)!important;
+  background-color: rgba(158, 174, 232, 0)!important;
   color: rgb(30, 37, 62, 0.75);
   cursor: pointer;
   display: flex;
@@ -63,31 +64,31 @@ button#nav {
     height: 25px;
   }
 } button#nav:hover {
-  border: 1px solid rgba(65, 78, 125, 0.5);
-  background-color: rgba(158, 174, 232, 0.075);
+  border: 1px solid rgba(65, 78, 125, 0.5)!important;
+  background-color: rgba(158, 174, 232, 0.075)!important;
   color: rgb(30, 37, 62,1);
 }
 
 select {
-  background-color: rgb(250, 251, 254);
-  border: 1px solid rgba(65, 78, 125, 0.25);
+  background-color: rgb(250, 251, 254)!important;
+  border: 1px solid rgba(65, 78, 125, 0.25)!important;
   border-radius: 10px;
   outline: none;
   padding: 5px 15px;
   cursor: pointer;
   font-size: 16px;
-  color: rgb(30, 37, 62, .75);
+  color: rgb(30, 37, 62, .75)!important;
   margin: 0 10px;
   min-width: 100px;
 } select:hover {
-  background-color: rgba(158, 174, 232, 0.05);
-  border: 1px solid rgba(65, 78, 125, 0.5);
+  background-color: rgba(158, 174, 232, 0.05)!important;
+  border: 1px solid rgba(65, 78, 125, 0.5)!important;
   color: rgb(30, 37, 62, 1);
 } select, ::picker(select) {
   appearance: base-select;
   border-radius: 10px;
-  border: 1px solid rgba(65, 78, 125, 0.25);
-  background-color: rgb(250, 251, 254);
+  border: 1px solid rgba(65, 78, 125, 0.25)!important;
+  background-color: rgb(250, 251, 254)!important;
 } ::picker(select) {
   height: 250px;
   margin: 10px 0;
@@ -98,22 +99,22 @@ select {
   font-size: 16px;
   color: rgb(30, 37, 62, .75);
 } option:hover {
-	background-color: rgba(158, 174, 232, 0.1);
+	background-color: rgba(158, 174, 232, 0.1)!important;
 	color: rgb(30, 37, 62, 1);
 } option:checked {
-	background-color: rgba(158, 174, 232, 0.25);
+	background-color: rgba(158, 174, 232, 0.25)!important;
 	color: rgb(30, 37, 62, 1);
 } option:checked:hover {
-	background-color: rgba(158, 174, 232, .5);
+	background-color: rgba(158, 174, 232, .5)!important;
 	color: rgb(30, 37, 62, 1);
 } ::picker(select)::-webkit-scrollbar {
   width: 8px;
 } ::picker(select)::-webkit-scrollbar-track {
-  background-color: rgba(158, 174, 232, 0.1);
+  background-color: rgba(158, 174, 232, 0.1)!important;
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;
 } ::picker(select)::-webkit-scrollbar-thumb {
-  background: rgba(65, 78, 125, 1);
+  background: rgba(65, 78, 125, 1)!important;
   border-radius: 10px;
   min-height: 15px;
 }

@@ -1,6 +1,7 @@
 import { Header } from './Header.tsx'
 import { Schedule } from './Schedule.tsx'
 import { Footer } from './Footer.tsx'
+import { QuickScheduleConfig } from './QuickScheduleConfig.tsx'
 import { useState } from 'react'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   return (
   	<>
     	<div className="app">
+				<QuickScheduleConfig/>
     	  <main id='app'>
     	    <Header newPage={setNewPage}/>
     	    {currentPage == "schedule" && <Schedule/>}

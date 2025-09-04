@@ -2,11 +2,11 @@ footer {
   display: flex;
   justify-content: space-between;
   margin: 50px 5px 25px 5px;
-  p {color: rgb(30, 37, 62,.75);}
+  p {color: rgb(30, 37, 62,.75)!important;}
   a {
-    color: rgb(75, 114, 255, .75);
+    color: rgb(75, 114, 255, .75)!important;
   } a:hover {
-    color: rgb(75, 114, 255);
+    color: rgb(75, 114, 255)!important;
     text-decoration: underline;
   }
 }
