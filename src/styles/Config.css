@@ -11,25 +11,10 @@ div#background-cfg  {
     max-width: 500px;
     border-radius: 10px;
     padding: 25px;
-    
     h1 {color: rgb(30, 37, 62, 1)!important;}
     p {color: rgba(30, 37, 62, .75)!important;}
     select {margin: 10px 0 25px 0;}
-    button#close-modal {
-      padding: 5px;
-      height: 35px;
-      width: 35px;
-      margin: 0;
-      float: right;
-      span {
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-      }
-    }
-    button {
-      width: 100%;
-    }
+    button {width: 100%;}
   }
 } 
 
