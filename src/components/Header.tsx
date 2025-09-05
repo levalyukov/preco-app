@@ -4,7 +4,7 @@ import { faBars, faCalendarDays, faXmark, faUserGroup} from '@fortawesome/free-s
 import { useState } from 'react'
 
 function Header({newPage}: {newPage: (page: 'schedule') => void}) {
-  
+
 	const [menuVisible, changeMenuVisible] = useState(false);
 
 	function handleOpenMenu() {
@@ -14,6 +14,13 @@ function Header({newPage}: {newPage: (page: 'schedule') => void}) {
 	function handleCloseMenu() {
     changeMenuVisible(false);
     document.body.style.overflowY = 'scroll';
+  }
+
+  function resetLocalStorage() {
+      if (localStorage.getItem("user_quick_schedule") != null) {
+          localStorage.removeItem("user_quick_schedule"); 
+          window.location.reload()
+      }
   }
 
   return (
@@ -33,7 +40,7 @@ function Header({newPage}: {newPage: (page: 'schedule') => void}) {
               <span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание
             </a>
 
-            <a id='item' onClick={() => {localStorage.removeItem("user_quick_schedule"); window.location.reload()}}>
+            <a id='item' onClick={() => {resetLocalStorage();}}>
               <span><FontAwesomeIcon icon={faUserGroup}/></span> Изменить учебную группу
             </a>
           </ul>

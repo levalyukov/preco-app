@@ -1,6 +1,14 @@
 import '../styles/Footer.css'
 
 function Footer() {
+
+    function resetLocalStorage() {
+        if (localStorage.getItem("user_quick_schedule") != null) {
+            localStorage.removeItem("user_quick_schedule"); 
+            window.location.reload()
+        }
+    }
+
     return (
         <footer>
             <p>
@@ -8,7 +16,7 @@ function Footer() {
             </p>
 
             <p>
-                <a id='changeGroup' onClick={() => {localStorage.removeItem("user_quick_schedule"); window.location.reload()}}>Изменить учебную группу</a>
+                <a id='changeGroup' onClick={() => {resetLocalStorage();}}>Изменить учебную группу</a>
             </p>
         </footer>
     )
