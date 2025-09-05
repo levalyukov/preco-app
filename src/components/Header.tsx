@@ -1,6 +1,6 @@
 import '../styles/Header.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCalendarDays, faXmark} from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCalendarDays, faXmark, faUserGroup} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
 function Header({newPage}: {newPage: (page: 'schedule') => void}) {
@@ -31,6 +31,10 @@ function Header({newPage}: {newPage: (page: 'schedule') => void}) {
           <ul>
             <a id='item' onClick={() => {newPage('schedule'); handleCloseMenu()}}>
               <span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание
+            </a>
+
+            <a id='item' onClick={() => {localStorage.removeItem("user_quick_schedule"); window.location.reload()}}>
+              <span><FontAwesomeIcon icon={faUserGroup}/></span> Изменить учебную группу
             </a>
           </ul>
 

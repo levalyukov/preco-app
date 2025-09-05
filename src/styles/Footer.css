@@ -8,11 +8,12 @@ footer {
   } a:hover {
     color: rgb(75, 114, 255)!important;
     text-decoration: underline;
-  }
+  } a#changeGroup {display: block;}
 }
 
 @media (max-width: 750px) {
   footer {
     padding: 0 25px;
+    a#changeGroup {display: none;};
   }
 }
