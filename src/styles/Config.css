@@ -8,10 +8,10 @@ div#background-cfg  {
   align-items: center;
   div#config {
     background-color: rgb(250,251,254)!important;
-    max-width: 500px;
+    max-width: 450px;
     border-radius: 10px;
     padding: 25px;
-    h1 {color: rgb(30, 37, 62, 1)!important;}
+    h1 {color: rgb(30, 37, 62, 1)!important; font-size: 28px;}
     p {color: rgba(30, 37, 62, .75)!important;}
     select {margin: 10px 0 25px 0;}
     button {width: 100%;}

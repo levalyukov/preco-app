@@ -29,8 +29,11 @@ function Header({newPage}: {newPage: (page: 'schedule') => void}) {
           </div>
 
           <ul>
-            <a id='item' onClick={() => {newPage('schedule'); handleCloseMenu()}}><span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание</a>
+            <a id='item' onClick={() => {newPage('schedule'); handleCloseMenu()}}>
+              <span><FontAwesomeIcon icon={faCalendarDays}/></span> Расписание
+            </a>
           </ul>
+
 				</div>
 			</div>
 

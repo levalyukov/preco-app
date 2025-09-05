@@ -44,7 +44,6 @@ header {
     width: 50%;
     height: 100%;
     background-color: rgb(250,251,254)!important;
-
     padding: 25px;
     #mobile-menu-header {
       display: flex;
@@ -66,8 +65,7 @@ header {
           width: 90%;
         }
       }
-    }
-    ul {
+    } ul {
       overflow-y: scroll;
       padding: 0;
       max-height: 50%;
@@ -79,15 +77,14 @@ header {
           margin-right: 10px;
         }
       }
-    }
-    ul::-webkit-scrollbar {
+    } ul::-webkit-scrollbar {
       width: 4px;
     } ul::-webkit-scrollbar-track {
       border-radius: 10px;
     } ul::-webkit-scrollbar-thumb {
       background: rgba(65, 78, 125, 0.25)!important;
       border-radius: 10px;
-    } 
+    }
   }
 }
 
