@@ -8,7 +8,10 @@ footer {
   } a:hover {
     color: rgb(75, 114, 255)!important;
     text-decoration: underline;
-  } a#changeGroup {display: block;}
+  } a#changeGroup {
+      display: block;
+      cursor: pointer;
+    }
 }
 
 @media (max-width: 750px) {
