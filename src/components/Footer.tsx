@@ -12,7 +12,7 @@ function Footer() {
     return (
         <footer>
             <p>
-                <a target='_blank' href='https://github.com/levalyukov/preco-app'>GitHub</a> · v0.3.1
+                <a target='_blank' href='https://github.com/levalyukov/preco-app'>GitHub</a> · v0.3.2
             </p>
 
             <p>
