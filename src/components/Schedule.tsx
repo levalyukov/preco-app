@@ -51,9 +51,9 @@ function Schedule() {
 		document.title = "PrecoApp: Расписание";
 		
 		if (localStorage.getItem("user_quick_schedule") != null) {
+			getCurrentWeek();
 			setGroup(String(localStorage.getItem("user_quick_schedule")));
 			getScheduleData(String(localStorage.getItem("user_quick_schedule")));
-			getCurrentWeek();
 		};
 
 		async function loadingSchedule() {
@@ -96,7 +96,9 @@ function Schedule() {
 				setScheduleVisible(true);
 				setScheduleError(false);
 				setScheduleLoading(false);
+				console.log("loading...");
 			} else {
+				console.log("parsed...");
 				setGroup(current_group);
 				const server = await fetch("http://localhost:3000/api/schedule?group="+current_group);
 				const scheduleData = await server.json();
@@ -116,6 +118,7 @@ function Schedule() {
 		} catch (err) {
 			console.log(err);
 			setScheduleError(true);
+			setScheduleVisible(false);
 		} finally {
 			setScheduleVisible(true);
 			setScheduleLoading(false);
