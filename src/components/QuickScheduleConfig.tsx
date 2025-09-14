@@ -5,15 +5,22 @@ function QuickScheduleConfig() {
   const selectGroup = useRef<HTMLSelectElement>(null);
   const [quickScheduleReady, setQuickSchedule] = useState(false);
 	const [eduGroup, setEduGroup] = useState<EduGroup>({});
-  const [error, setErrorQS] = useState(!false);
-	interface EduGroup {[groups:string]: {array:Array<String>}};
+  const [error, setErrorQS] = useState(true);
+	interface EduGroup {[groups:string]: {array:string[]}};
 
   useEffect(() => {
 		async function loadingSchedule() {
 			try {
-				const allEduGroups = await fetch("http://localhost:3000/api/groups");
-				const groups = await allEduGroups.json();
-				setEduGroup(groups);
+        const storedGroups = localStorage.getItem("grops");
+        if (storedGroups) {
+          const parsedGroups:EduGroup = JSON.parse(storedGroups);
+          setEduGroup(parsedGroups);
+        } else {
+          const allEduGroups = await fetch("http://localhost:3000/api/groups");
+          const groups: EduGroup = await allEduGroups.json();
+          setEduGroup(groups);
+          localStorage.setItem("grops", JSON.stringify(groups));
+        }
 			} catch (err) {
 				console.error(err);
         setErrorQS(true);

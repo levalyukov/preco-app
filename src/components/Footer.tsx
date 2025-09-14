@@ -1,7 +1,6 @@
 import '../styles/Footer.css'
 
 function Footer() {
-
     function resetLocalStorage() {
         if (localStorage.getItem("user_quick_schedule") != null) {
             localStorage.removeItem("user_quick_schedule"); 
@@ -12,7 +11,7 @@ function Footer() {
     return (
         <footer>
             <p>
-                <a target='_blank' href='https://github.com/levalyukov/preco-app'>GitHub</a> · v0.3.2
+                <a target='_blank' href='https://github.com/levalyukov/preco-app'>GitHub</a> · v0.4.0
             </p>
 
             <p>

@@ -1,19 +1,20 @@
-import '../styles/Schedule.css'
+import '../styles/Schedule.css';
 import { useRef, useEffect, useState } from 'react';
 
 function Schedule() {
-	const [scheduleData, setSchedule] = useState<ScheduleStruct>({})
-	const [scheduleLoaded, setScheduleLoading] = useState(!true)
-	const [scheduleError, setScheduleError] = useState(false)
-	const [scheduleVisible, setScheduleVisible] = useState(false)
-	const [weekCurrent, setCurrentWeek] = useState("")
+	const [scheduleData, setSchedule] = useState<ScheduleStruct>({});
+	const [scheduleLoaded, setScheduleLoading] = useState(false);
+	const [scheduleError, setScheduleError] = useState(false);
+	const [scheduleVisible, setScheduleVisible] = useState(false);
+	const [weekCurrent, setCurrentWeek] = useState("");
 
-	const [eduGroup, setEduGroup] = useState<EduGroup>({})
-	const [groupSelected, setGroup] = useState<String>("100")
-	const groupList = useRef<HTMLSelectElement>(null)
+	const [eduGroup, setEduGroup] = useState<EduGroup>({});
+	const [groupSelected, setGroup] = useState<String>("100");
+	const [groupHeaderSelected, setHeaderGroup] = useState<String>("100");
+	const groupList = useRef<HTMLSelectElement>(null);
 
-	const [loaded, setLoading] = useState(true)
-	const [error, setError] = useState(false)
+	const [loaded, setLoading] = useState(true);
+	const [error, setError] = useState(false);
 
 	interface ScheduleStruct {
 		[date:string]: {
@@ -26,61 +27,98 @@ function Schedule() {
 		coupe:string,
 		time_start:string,
 		time_end:string
-	}
+	};
 
 	interface EduGroup {
 		[groups:string]: {array:Array<String>}
-	}
-
+	};
 
 	async function getCurrentWeek() {
 		try {
-			const connect = await fetch("http://localhost:3000/api/current_date")
-			const data = await connect.json()
-			setCurrentWeek(data.current)
+			const connect = await fetch("http://localhost:3000/api/current_date");
+			const data = await connect.json();
+			setCurrentWeek(data.current);
 		} catch {
-			setCurrentWeek("")
+			setCurrentWeek("");
 		}
+	}
+
+	function groupChanged(event: React.ChangeEvent<HTMLSelectElement>) {
+		setGroup(event.target.value);
 	}
 
 	useEffect(() => {
 		document.title = "PrecoApp: Расписание";
-
+		
 		if (localStorage.getItem("user_quick_schedule") != null) {
 			setGroup(String(localStorage.getItem("user_quick_schedule")));
-			getScheduleData(String(localStorage.getItem("user_quick_schedule")))
-		}
+			getScheduleData(String(localStorage.getItem("user_quick_schedule")));
+			getCurrentWeek();
+		};
 
 		async function loadingSchedule() {
 			try {
-				const allEduGroups = await fetch("http://localhost:3000/api/groups")
-				const groups = await allEduGroups.json()
-				setEduGroup(groups)
+        const storedGroups = localStorage.getItem("grops");
+        if (storedGroups) {
+          const parsedGroups:EduGroup = JSON.parse(storedGroups);
+          setEduGroup(parsedGroups);
+        } else {
+          const allEduGroups = await fetch("http://localhost:3000/api/groups");
+          const groups: EduGroup = await allEduGroups.json();
+          setEduGroup(groups);
+          localStorage.setItem("grops", JSON.stringify(groups));
+        }
 			} catch (err) {
-				console.error(err)
-				setError(true)
+				console.error(err);
+				setError(true);
 			} finally {
-				setLoading(false)
+				setLoading(false);
 			}
 		}
-		loadingSchedule()
-		getCurrentWeek()
+		loadingSchedule();
+		getCurrentWeek();
 	}, [])
 
 	async function getScheduleData(current_group:string) {
+		const scheduleData = localStorage.getItem(current_group);
+		setScheduleVisible(false);
+		setScheduleLoading(true);
 		try {
-			setScheduleLoading(true)
-			setGroup(current_group)
-			setScheduleVisible(false)
-			const server = await fetch("http://localhost:3000/api/schedule?group="+current_group)
-			const schedule = await server.json()
-			setSchedule(schedule)
-			setScheduleVisible(true)
-			setScheduleError(false)
+			let parseData;
+			if (scheduleData) {
+				parseData = JSON.parse(scheduleData);
+			}
+
+			if (parseData) {
+				if (parseData.saved_datetime == weekCurrent) {
+					setSchedule(parseData.saved_schedule);
+					setHeaderGroup(current_group);
+					setScheduleVisible(true);
+					setScheduleError(false);
+					setScheduleLoading(false);
+				} 
+			} else {
+				setGroup(current_group);
+				const server = await fetch("http://localhost:3000/api/schedule?group="+current_group);
+				const scheduleData = await server.json();
+				setSchedule(scheduleData);
+				setHeaderGroup(current_group);
+				setScheduleVisible(true);
+				setScheduleError(false);
+				setScheduleLoading(true);
+
+				const data = {
+					saved_schedule: scheduleData,
+					saved_datetime: weekCurrent
+				};
+
+				localStorage.setItem(current_group, JSON.stringify(data));
+			}
 		} catch (err) {
-			setScheduleError(true)
+			console.log(err);
+			setScheduleError(true);
 		} finally {
-			setScheduleLoading(false)
+			setScheduleLoading(false);
 		}
 	}
 
@@ -89,14 +127,14 @@ function Schedule() {
 			<div id='controlPanel'>
 				<nav>
 					<p>Учебная группа:</p>
-					<select ref={groupList}>
+					<select ref={groupList} value={String(groupSelected)} onChange={groupChanged}>
 						{Object.entries(eduGroup.groups).map(([_index, _group]) => (
 							<option>{_group}</option>
 						))}
 					</select>
 				</nav>
 
-				<button onClick={() => getScheduleData(String(groupList?.current?.value))}>Получить расписание</button>
+				<button onClick={() => {getScheduleData(String(groupList?.current?.value)); }}>Получить расписание</button>
 			</div>
 		)
 	}
@@ -141,11 +179,12 @@ function Schedule() {
 				<section id='notice'><p>Загрузка расписания...</p></section>
 			)
 		}
+
 		if (scheduleError) {
 			return (
 				<section id='notice'>
 					<p>Ошибка подключения к серверу.</p>
-					<button onClick={() => getScheduleData(String(groupList?.current?.value))}>Повторить попытку</button>
+					<button onClick={() => {getScheduleData(String(groupList?.current?.value));}}>Повторить попытку</button>
 				</section>
 			)
 		}
@@ -178,7 +217,7 @@ function Schedule() {
 			{getScheduleState()}
 			{scheduleVisible ? (
 				<>
-					<h1>Расписание {groupSelected} <p id='scheduleDate'>{weekCurrent}</p></h1>
+					<h1>Расписание {groupHeaderSelected} <p id='scheduleDate'>{weekCurrent}</p></h1>
 					{getSchedule()}
 				</>
 			) : (<></>)}

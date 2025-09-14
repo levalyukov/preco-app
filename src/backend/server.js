@@ -7,8 +7,8 @@ const port = 3000
 const host = '0.0.0.0'
 
 app.use(cors({
-  origin: ['https://www.preco-app.ru', 'https://preco-app.ru'],
-  optionsSuccessStatus: 200
+  // origin: ['https://www.preco-app.ru', 'https://preco-app.ru'],
+  // optionsSuccessStatus: 200
 })); 
 
 function getCurrentWeekDates() {
@@ -21,9 +21,7 @@ function getCurrentWeekDates() {
     const date = new Date(monday)
     date.setDate(monday.getDate() + i)
     weekDates.push(date)
-  }
-
-  return weekDates;
+  }; return weekDates;
 }
 
 app.get('/api/current_date', async (req, res) => {
