@@ -83,20 +83,19 @@ function Schedule() {
 		const scheduleData = localStorage.getItem(current_group);
 		setScheduleVisible(false);
 		setScheduleLoading(true);
-		try {
-			let parseData;
-			if (scheduleData) {
-				parseData = JSON.parse(scheduleData);
-			}
 
-			if (parseData) {
-				if (parseData.saved_datetime == weekCurrent) {
-					setSchedule(parseData.saved_schedule);
-					setHeaderGroup(current_group);
-					setScheduleVisible(true);
-					setScheduleError(false);
-					setScheduleLoading(false);
-				} 
+		let parseData;
+		if (scheduleData) {
+			parseData = JSON.parse(scheduleData);
+		}
+
+		try {
+			if (parseData && (parseData.saved_datetime == weekCurrent)) {
+				setSchedule(parseData.saved_schedule);
+				setHeaderGroup(current_group);
+				setScheduleVisible(true);
+				setScheduleError(false);
+				setScheduleLoading(false);
 			} else {
 				setGroup(current_group);
 				const server = await fetch("http://localhost:3000/api/schedule?group="+current_group);
@@ -118,6 +117,7 @@ function Schedule() {
 			console.log(err);
 			setScheduleError(true);
 		} finally {
+			setScheduleVisible(true);
 			setScheduleLoading(false);
 		}
 	}
@@ -134,7 +134,7 @@ function Schedule() {
 					</select>
 				</nav>
 
-				<button onClick={() => {getScheduleData(String(groupList?.current?.value)); }}>Получить расписание</button>
+				<button onClick={() => {getScheduleData(String(groupList?.current?.value));}}>Получить расписание</button>
 			</div>
 		)
 	}

@@ -6,7 +6,10 @@ const app = express()
 const port = 3000
 const host = '0.0.0.0'
 
-app.use('*', cors())
+app.use(cors({
+  origin: ['https://www.preco-app.ru', 'https://preco-app.ru'],
+  optionsSuccessStatus: 200
+}))
 
 function getCurrentWeekDates() {
   const today = new Date()
