@@ -4,24 +4,24 @@ import { faBars, faCalendarDays, faXmark, faUserGroup} from '@fortawesome/free-s
 import { useState } from 'react'
 
 function Header({newPage}: {newPage: (page: 'schedule') => void}) {
-
 	const [menuVisible, changeMenuVisible] = useState(false);
 
 	function handleOpenMenu() {
     changeMenuVisible(true);
     document.body.style.overflowY = 'hidden';
-  }
+  };
+
 	function handleCloseMenu() {
     changeMenuVisible(false);
     document.body.style.overflowY = 'scroll';
-  }
+  };
 
   function resetLocalStorage() {
-      if (localStorage.getItem("user_quick_schedule") != null) {
-          localStorage.removeItem("user_quick_schedule"); 
-          window.location.reload()
-      }
-  }
+    if (localStorage.getItem("user_quick_schedule") != null) {
+      localStorage.removeItem("user_quick_schedule"); 
+      window.location.reload();
+    };
+  };
 
   return (
     <header>
@@ -53,7 +53,7 @@ function Header({newPage}: {newPage: (page: 'schedule') => void}) {
         <button onClick={handleOpenMenu} id='nav' className='open-nav'><span><FontAwesomeIcon icon={faBars}/></span></button>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export { Header }
+export { Header };
