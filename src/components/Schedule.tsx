@@ -89,7 +89,7 @@ function Schedule() {
 				} else {
 					console.log("Schedule is parsed.");
 					setGroup(current_group);
-					const server = await fetch("http://localhost:3000/api/schedule?group="+current_group);
+					const server = await fetch("/api/schedule?group="+current_group);
 					const scheduleData = await server.json();
 					setSchedule(scheduleData);
 					setHeaderGroup(current_group);
@@ -107,7 +107,7 @@ function Schedule() {
 			} else {
 				console.log("Schedule is parsed.");
 				setGroup(current_group);
-				const server = await fetch("http://localhost:3000/api/schedule?group="+current_group);
+				const server = await fetch("/api/schedule?group="+current_group);
 				const scheduleData = await server.json();
 				setSchedule(scheduleData);
 				setHeaderGroup(current_group);
@@ -134,7 +134,7 @@ function Schedule() {
 
 	async function getCurrentWeek() {
 		try {
-			const connect = await fetch("http://localhost:3000/api/current_date");
+			const connect = await fetch("/api/current_date");
 			const data = await connect.json();
 			setCurrentWeek(data.current);
 		} catch (err) {

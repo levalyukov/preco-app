@@ -8,7 +8,7 @@ function Footer() {
     useEffect(() => {
         async function getServerStatus() {
             try {
-                const backend = await fetch("http://localhost:3000/api/status");
+                const backend = await fetch("/api/status");
                 const server = await backend.json();
                 if (server.status == 200) {
                     setServerStatus('available');

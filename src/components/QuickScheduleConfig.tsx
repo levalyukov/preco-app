@@ -16,7 +16,7 @@ function QuickScheduleConfig() {
           const parsedGroups:EduGroup = JSON.parse(storedGroups);
           setEduGroup(parsedGroups);
         } else {
-          const allEduGroups = await fetch("http://localhost:3000/api/groups");
+          const allEduGroups = await fetch("/api/groups");
           const groups:EduGroup = await allEduGroups.json();
           setEduGroup(groups);
           localStorage.setItem("groups", JSON.stringify(groups));
