@@ -113,9 +113,7 @@ app.get('/api/schedule', async (req, res) => {
       };
     };
   } catch (error) {
-    console.error(
-      "Schedule parser error: ", error
-    );
+    console.error("Schedule parser error: ", error);
   };
 
   browser.close();
