@@ -3,7 +3,7 @@ import express from 'express'
 import { chromium } from 'playwright'
 
 const app = express();
-const port = 3000;
+const port = 3001;
 const host = '0.0.0.0';
 const url = 'https://moodle.preco.ru/blocks/sheduleonlineurk/sheduleonlinefree.php';
 
