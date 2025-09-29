@@ -54,7 +54,7 @@ function Schedule() {
           const parsedGroups:EduGroup = JSON.parse(storedGroups);
           setEduGroup(parsedGroups);
         } else {
-          const data = await fetch("http://localhost:3000/api/groups");
+          const data = await fetch("/api/groups");
           const groups:EduGroup = await data.json();
 					setEduGroup(groups);
 					localStorage.setItem("groups", JSON.stringify(groups));
