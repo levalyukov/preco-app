@@ -45,7 +45,7 @@ function Schedule() {
 				setGroup(String(localStorage.getItem("user_quick_schedule")));
 				getScheduleData(String(localStorage.getItem("user_quick_schedule")));
 			};
-		}, 1250);
+		}, 2000);
 
 		async function loadingSchedule() {
 			try {
