@@ -12,7 +12,7 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-function getCurrentWeekDates() {
+async function getCurrentWeekDates() {
   const today = new Date();
   const dayOfWeek = today.getDay();
   const monday = new Date(today);
@@ -34,13 +34,6 @@ app.get("/api/status", async (req, res) => {
   res.send({"status": code});
 });
 
-app.get('/api/current_date', async (req, res) => {
-  const week = getCurrentWeekDates();
-  res.send(
-    {"current": String(week.map(d => d.toLocaleDateString("ru-ru"))[0]+" — "+week.map(d => d.toLocaleDateString("ru-ru"))[week.length-1])}
-  );
-});
-
 app.get('/api/schedule', async (req, res) => {
   let browser = null;
   let result = {};
@@ -49,7 +42,7 @@ app.get('/api/schedule', async (req, res) => {
   try {
     browser = await chromium.launch({headless: true});
     const page = await browser.newPage();
-    const week = getCurrentWeekDates();
+    const week = await getCurrentWeekDates();
 
     await page.goto(
       url+`?datebegin[day]=`+week.map(d => d.getDate())[0]+`&datebegin[month]=`+week.map(d => d.getMonth()+1)[0]+`&datebegin[year]=`+week.map(d => d.getFullYear())[0]+`&datefinish[day]=`+week.map(d => d.getDate())[week.length-1]+`&datefinish[month]=`+week.map(d => d.getMonth()+1)[week.length-1]+`&datefinish[year]=`+week.map(d => d.getFullYear())[week.length-1]

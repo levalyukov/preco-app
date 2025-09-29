@@ -2,11 +2,12 @@ import '../styles/Schedule.css';
 import { useRef, useEffect, useState } from 'react';
 
 function Schedule() {
+	const weekDates = getCurrentDate()
+	const current_date = String(weekDates.map(d => d.toLocaleDateString("ru-ru"))[0]+" — "+weekDates.map(d => d.toLocaleDateString("ru-ru"))[weekDates.length-1])
 	const [scheduleData, setSchedule] = useState<ScheduleStruct>({});
 	const [scheduleLoaded, setScheduleLoading] = useState(false);
 	const [scheduleError, setScheduleError] = useState(false);
 	const [scheduleVisible, setScheduleVisible] = useState(false);
-	const [weekCurrent, setCurrentWeek] = useState("");
 	const [eduGroup, setEduGroup] = useState<EduGroup>({});
 	const [groupSelected, setGroup] = useState<String>("100");
 	const [groupHeaderSelected, setHeaderGroup] = useState<String>("100");
@@ -37,15 +38,12 @@ function Schedule() {
 
 	useEffect(() => {
 		document.title = "PrecoApp: Расписание";
-		
-		getCurrentWeek();
+
 		// todo: Add the string "loading..." in the future.
-		setTimeout(() => {
-			if (localStorage.getItem("user_quick_schedule") != null) {
-				setGroup(String(localStorage.getItem("user_quick_schedule")));
-				getScheduleData(String(localStorage.getItem("user_quick_schedule")));
-			};
-		}, 2000);
+		if (localStorage.getItem("user_quick_schedule") != null) {
+			setGroup(String(localStorage.getItem("user_quick_schedule")));
+			getScheduleData(String(localStorage.getItem("user_quick_schedule")));
+		};
 
 		async function loadingSchedule() {
 			try {
@@ -79,7 +77,7 @@ function Schedule() {
 
 		try {
 			if (parseData) {
-				if (parseData.saved_datetime == weekCurrent) {
+				if (parseData.saved_datetime == current_date) {
 					setSchedule(parseData.saved_schedule);
 					setHeaderGroup(current_group);
 					setScheduleVisible(true);
@@ -99,7 +97,7 @@ function Schedule() {
 
 					const data = {
 						saved_schedule: scheduleData,
-						saved_datetime: weekCurrent
+						saved_datetime: current_date
 					};
 
 					localStorage.setItem(current_group, JSON.stringify(data));
@@ -117,7 +115,7 @@ function Schedule() {
 
 				const data = {
 					saved_schedule: scheduleData,
-					saved_datetime: weekCurrent
+					saved_datetime: current_date
 				};
 
 				localStorage.setItem(current_group, JSON.stringify(data));
@@ -132,14 +130,17 @@ function Schedule() {
 		};
 	};
 
-	async function getCurrentWeek() {
-		try {
-			const connect = await fetch("/api/current_date");
-			const data = await connect.json();
-			setCurrentWeek(data.current);
-		} catch (err) {
-			console.error(err);
-		};
+	function getCurrentDate() {
+  	const today = new Date();
+  	const dayOfWeek = today.getDay();
+  	const monday = new Date(today);
+  	monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+  	const weekDates = [];
+  	for (let i = 0; i < 7; i++) {
+  	  const date = new Date(monday);
+  	  date.setDate(monday.getDate() + i);
+  	  weekDates.push(date);
+  	}; return weekDates;
 	};
 
   function resetLocalStorage() {
@@ -248,7 +249,7 @@ function Schedule() {
 			{getScheduleState()}
 			{scheduleVisible ? (
 				<>
-					<h1>Расписание {groupHeaderSelected} <p id='scheduleDate'>{weekCurrent}</p></h1>
+					<h1>Расписание {groupHeaderSelected} <p id='scheduleDate'>{current_date}</p></h1>
 					{getSchedule()}
 				</>
 			) : (<></>)}
