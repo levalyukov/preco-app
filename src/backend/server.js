@@ -145,7 +145,7 @@ app.get('/api/groups', async (req, res) => {
   }; 
   
   groups_dict["groups"] = group_arr;
-  res.json();
+  res.json(groups_dict);
 });
 
 app.listen(port, host, () => {
