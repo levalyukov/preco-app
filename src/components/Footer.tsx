@@ -29,7 +29,7 @@ function Footer() {
     return (
         <footer>
             <p id='server-status'>Состояние сервера: <span id={serverStatus}>{serverStatusText}</span></p>
-            <p><a target='_blank' href='https://github.com/levalyukov/preco-app'>GitHub</a> · v0.5.2</p>
+            <p><a target='_blank' href='https://github.com/levalyukov/preco-app'>GitHub</a> · v0.5.3</p>
         </footer>
     )
 }
