@@ -14,6 +14,8 @@ PrecoApp - Application that allows you to get schedule of the Ural Regional Coll
 - [X] Getting a weekly schedule for groups
 - [X] Quickly get a schedule for a user-specified group
 - [X] Server status in the footer
+- [ ] The forced parsing button
+- [ ] Sending a request to the server to check the schedule change
 
 ## Main modules
 
