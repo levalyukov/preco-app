@@ -1,6 +1,6 @@
 # Preco Web App
 
-PrecoApp - Application that allows you to get schedule of the Ural Regional College groups. This web application is a direct evolution of **[telegram-bot-parser](https://github.com/levalyukov/telegram-bot-parser)**.
+PrecoApp - Application that allows you to get schedule of the Ural Regional College groups.
 
 > [!NOTE]
 > This application is a learning exercise. Consequently, some implementation choices may reflect that learning process rather than production-grade best practices. It's my first project combining React, TypeScript, and various libraries
